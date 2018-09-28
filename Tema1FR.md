@@ -198,6 +198,123 @@ opposed to a few tens of meters) of the base station.
 In brief, HFC uses a combination of fiber cable and coaxial cable, DSL and Ethernet use
 copper wire, and mobile access networks use the radio spectrum.
 
+### Physical media
+
+A bit, when traveling from source to destination, passes through a series
+of transmitter-receiver pairs. For each transmitter-receiver pair, the bit is sent by
+propagating electromagnetic waves or optical pulses across a physical medium.
+The physical medium can take many shapes and forms and does not have to be of
+the same type for each transmitter-receiver pair along the path. Examples of physi-
+cal media include twisted-pair copper wire, coaxial cable, multimode fiber-optic
+cable, terrestrial radio spectrum, and satellite radio spectrum. Physical media fall
+into two categories: guided media and unguided media. With guided media, the
+waves are guided along a solid medium, such as a fiber-optic cable, a twisted-pair
+copper wire, or a coaxial cable. With unguided media, the waves propagate in the
+atmosphere and in outer space, such as in a wireless LAN or a digital satellite
+channel.
+
++ Twisted-Pair Copper Wire: It is the least expensive and most commonly used guided transmission medium.
+For over a hundred years it has been used by telephone
+networks. In fact, more than 99 percent of the wired connections from the tele-
+phone handset to the local telephone switch use twisted-pair copper wire. Most of
+us have seen twisted pair in our homes and work environments. Twisted pair con-
+sists of two insulated copper wires, each about 1 mm thick, arranged in a regular
+spiral pattern. The wires are twisted together to reduce the electrical interference
+from similar pairs close by. Typically, a number of pairs are bundled together in a
+cable by wrapping the pairs in a protective shield. A wire pair constitutes a single
+communication link. Unshielded twisted pair (UTP) is commonly used for computer networks within a building, that is, for LANs.
+The data rates that can be achieved depend on the thickness of the wire and the distance between transmitter and receiver.
+When fiber-optic technology emerged in the 1980s, many people disparaged
+twisted pair because of its relatively low bit rates. Some people even felt that fiber-
+optic technology would completely replace twisted pair. But twisted pair did not
+give up so easily. Modern twisted-pair technology, such as category 6a cable, can
+achieve data rates of 10 Gbps for distances up to a hundred meters. In the end,
+twisted pair has emerged as the dominant solution for high-speed LAN networking.
+
++ Coaxial Cable: Like twisted pair, coaxial cable consists of two copper conductors, but the two con-
+ductors are concentric rather than parallel. With this construction and special insula-
+tion and shielding, coaxial cable can achieve high data transmission rates. Coaxial
+cable is quite common in cable television systems. Cable televi-
+sion systems have recently been coupled with cable modems to provide residential
+users with Internet access at rates of tens of Mbps. In cable television and cable
+Internet access, the transmitter shifts the digital signal to a specific frequency band,
+and the resulting analog signal is sent from the transmitter to one or more receivers.
+Coaxial cable can be used as a guided shared medium. Specifically, a number of
+end systems can be connected directly to the cable, with each of the end systems
+receiving whatever is sent by the other end systems.
+
++ Fiber Optics: An optical fiber is a thin, flexible medium that conducts pulses of light, with each
+pulse representing a bit. A single optical fiber can support tremendous bit rates, up
+to tens or even hundreds of gigabits per second. They are immune to electromag-
+netic interference, have very low signal attenuation up to 100 kilometers, and are
+very hard to tap. These characteristics have made fiber optics the preferred long-
+haul guided transmission media, particularly for overseas links. Many of the long-
+distance telephone networks in the United States and elsewhere now use fiber optics
+exclusively. Fiber optics is also prevalent in the backbone of the Internet. However,
+the high cost of optical devices—such as transmitters, receivers, and switches—has
+hindered their deployment for short-haul transport, such as in a LAN or into the
+home in a residential access network.
+
++ Terrestrial Radio Channels: Radio channels carry signals in the electromagnetic spectrum. They are an attractive
+medium because they require no physical wire to be installed, can penetrate walls,
+provide connectivity to a mobile user, and can potentially carry a signal for long dis-
+tances. The characteristics of a radio channel depend significantly on the propagation
+environment and the distance over which a signal is to be carried. Environmental con-
+siderations determine path loss and shadow fading (which decrease the signal strength
+as the signal travels over a distance and around/through obstructing objects), multi-
+path fading (due to signal reflection off of interfering objects), and interference (due
+to other transmissions and electromagnetic signals).
+Terrestrial radio channels can be broadly classified into three groups: those that
+operate over very short distance (e.g., with one or two meters); those that operate in
+local areas, typically spanning from ten to a few hundred meters; and those that
+operate in the wide area, spanning tens of kilometers. Personal devices such as wire-
+less headsets, keyboards, and medical devices operate over short distances; the
+wireless LAN technologies use local-area radio channels;
+the cellular access technologies use wide-area radio channels.
+
++ Satellite Radio Channels: A communication satellite links two or more Earth-based microwave transmitter/
+receivers, known as ground stations. The satellite receives transmissions on one fre-
+quency band, regenerates the signal using a repeater, and transmits
+the signal on another frequency. Two types of satellites are used in communications:
+geostationary satellites (The huge distance from ground station through satellite back
+to ground station introduces a substantial signal propagation delay of 280 millisec-
+onds. Nevertheless, satellite links, which can operate at speeds of hundreds of Mbps,
+are often used in areas without access to DSL or cable-based Internet access) and low-earth orbiting (LEO) satellites (they may communicate with each other, as well as with ground stations. To provide continuous
+coverage to an area, many satellites need to be placed in orbit. LEO satellite technology may be used
+for Internet access sometime in the future).
+
+### Packet switching
+
+In a network application, end systems exchange messages with each other. Mes-
+sages can contain anything the application designer wants. Messages may perform a
+control function or can contain data. To send a message from a source to a destination end system,
+the source breaks long messages into smaller chunks of data known as packets.
+Between source and destination, each packet travels through communication links
+and packet switches (for which there are two predominant types, routers and link-
+layer switches). Packets are transmitted over each communication link at a rate
+equal to the full transmission rate of the link. So, if a source end system or a packet
+switch is sending a packet of L bits over a link with transmission rate R bits/sec, then
+the time to transmit the packet is L/R seconds.
+
+Most packet switches use store-and-forward transmission at the inputs to the
+links. Store-and-forward transmission means that the packet switch must receive
+the entire packet before it can begin to transmit the first bit of the packet onto the
+outbound link.
+Amount of time that elapses from when the source begins to send the
+packet until the destination has received the entire packet: (Here we will ignore
+propagation delay—the time it takes for the bits to travel across the wire at near the
+speed of light) The source begins to transmit at time 0; at time L/R seconds, the source has transmitted the entire packet, and
+the entire packet has been received and stored at the router. At time L/R seconds, since the router has just received the entire
+packet, it can begin to transmit the packet onto the outbound link towards the desti-
+nation; at time 2L/R, the router has transmitted the entire packet, and the entire
+packet has been received by the destination. Thus, the total delay is 2L/R. If
+the switch instead forwarded bits as soon as they arrive (without first receiving the
+entire packet), then the total delay would be L/R since bits are not held up at
+the router. But, as we will discuss in Section 1.4, routers need to receive, store, and
+process the entire packet before forwarding.
+
+
+
 
 
 
