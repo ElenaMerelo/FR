@@ -1,0 +1,31 @@
+
+openssl dgst -sha -out dgst_texto.txt texto.txt 
+Para encriptar un fichero llamado texto.txt-> openssl enc -aes-128-cbc -in texto.txt -out enc_texto.txt 
+
+Para desencriptar el anterior fichero que hemos encriptado-> openssl enc -d -aes-128-cbc -in enc_texto.txt -out denc_texto.txt 
+
+Para generar una llave privada-> openssl genpkey -algorithm RSA -out privkey 
+
+Para generar una llave pública a partir de la privada-> openssl pkey -in privkey -pubout -out pubkey 
+
+Encriptamos un fichero a partir de la llave pública-> openssl pkeyutl -pubin -encrypt -in texto.txt -out enc_texto.txt -inkey pubkey
+
+openssl pkeyutil -decrypt -in enc_texto.txt -out deenc_texto.txt -inkey privkey
+
+Generar una llave que van a compartir en ambos extremos-> openvpn --genkey --secret llave
+
+Creamos un túnel donde creamos originalmente la llave-> En 10.0.2.4 creamos tunel que contiene:
+dev tun
+ifconfig 11.0.2.4 11.0.2.5 
+secret llave
+
+En 10.0.2.5 creamos tunel 
+remote 10.0.2.4 
+dev tun 
+ifconfic 11.0.2.5 11.0.2.4 
+secret llave 
+
+En ambas máquinas virtuales abrimos el túnel: 
+sudo openvpn tunel
+Si ahora hacemos ifconfig vemos que aparece una nueva ip tun0 con las direcciones que indicamos arriba. En una de ellas hacemos sudo wireshark, en otra terminal ping y la ip de la otra máquina, y si nos metemos en tun0 o como se haya llamado al túnel vemos cómo se están mandando los datos. Si luego nos metemos en este mismo wireshark en eth1 o el que sea aparecen los datos encriptados
+remote 1
