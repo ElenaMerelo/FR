@@ -35,24 +35,11 @@ public class YodafyServidorIterativo {
             DatagramSocket socketServidor= new DatagramSocket(8989);
 
             // Mientras ... siempre!
-            do {
-                //Recibimos paquete 
-                socketServidor.receive(paquete);
-                buffer= paquete.getData();
-                // Formateamos el mensaje recibido
-                mensaje= new String(buffer).trim();
-                System.out.println(mensaje);
-                
-                address= paquete.getAddress();
-                System.out.println("Recibido desde la inet address " + address );
-                
-                port= paquete.getPort();
-                System.out.println("Recibido desde puerto " + port);
-
+            do {     
                 // Creamos un objeto de la clase ProcesadorYodafy, pasándole como 
                 // argumento el nuevo socket, para que realice el procesamiento
                 // Este esquema permite que se puedan usar hebras más fácilmente.
-                ProcesadorYodafy procesador=new ProcesadorYodafy(socketServidor, address, port);
+                ProcesadorYodafy procesador=new ProcesadorYodafy(socketServidor);
                 procesador.procesa();
                 //socketServidor.close();
 

@@ -20,10 +20,10 @@ import java.net.InetAddress;
 
 public class YodafyClienteUDP {
     public static void main(String[] args) {
-        String mensaje;
         String respuesta;
 
         byte [] buffer= new byte[256];
+        byte [] buffer2= new byte[256];
         // Nombre del host donde se ejecuta el servidor:
         String host="localhost";
         int port= 8989;
@@ -50,10 +50,14 @@ public class YodafyClienteUDP {
 
             paquete= new DatagramPacket(buffer, buffer.length, direccion, port);
             socketServicio.send(paquete);
+            
+            DatagramPacket receivePacket = new DatagramPacket( buffer2, buffer2.length );
+            socketServicio.receive( receivePacket );
+            respuesta = new String( receivePacket.getData() );
+            System.out.println( "Respuesta recibida: " + respuesta );
 
 
-            // Una vez terminado el servicio, cerramos el socket (automáticamente se cierran
-            // el inpuStream  y el outputStream)
+            // Una vez terminado el servicio, cerramos el socket
             socketServicio.close();
 
             // Excepciones:

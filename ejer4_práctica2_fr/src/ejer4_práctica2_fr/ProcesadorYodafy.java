@@ -29,22 +29,17 @@ public class ProcesadorYodafy {
         
         private DatagramPacket paquete;
         
-        private InetAddress address;
-        private int port;
-        
         byte [] buffer;
 	
 	// Para que la respuesta sea siempre diferente, usamos un generador de números aleatorios.
 	private Random random;
 	
 	// Constructor que tiene como parámetro una referencia al socket abierto en por otra clase
-	public ProcesadorYodafy(DatagramSocket socketServicio, InetAddress a, int p) {
+	public ProcesadorYodafy(DatagramSocket socketServicio) {
             this.socketServicio=socketServicio;
             random=new Random();
             buffer= new byte[256];
-            paquete= new DatagramPacket(buffer, buffer.length);
-            this.address= a;
-            this.port= p;
+            paquete= new DatagramPacket(buffer, buffer.length);      
 	}
 	
 	
@@ -56,9 +51,12 @@ public class ProcesadorYodafy {
                 socketServicio.receive(paquete); 
                 
                 buffer= paquete.getData();
+                InetAddress address= paquete.getAddress();
+                int port= paquete.getPort();
                 
                 //Pasamos los bytes a string
                 String mensaje= new String(buffer).trim();
+                System.out.println("Servidor: recibido mensaje: " + mensaje);
 
                 // Yoda reinterpreta el mensaje:
                 String respuesta=yodaDo(mensaje);
