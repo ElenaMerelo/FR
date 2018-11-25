@@ -4,18 +4,11 @@
 
 package ejer4_práctica2_fr;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.net.Socket;
 import java.net.UnknownHostException;
 import java.net.DatagramSocket;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
-
 
 
 public class YodafyClienteUDP {
@@ -33,10 +26,10 @@ public class YodafyClienteUDP {
         try{
             direccion= InetAddress.getByName(host);
         }catch(UnknownHostException e){
-            System.err.println("Error: host desconocido");
+            System.err.println("Error: host desconocido " + e);
         }
+        
         DatagramPacket paquete;
-
 
         // Socket para la conexión TCP
         DatagramSocket socketServicio=null;
@@ -53,6 +46,7 @@ public class YodafyClienteUDP {
             
             DatagramPacket receivePacket = new DatagramPacket( buffer2, buffer2.length );
             socketServicio.receive( receivePacket );
+            
             respuesta = new String( receivePacket.getData() );
             System.out.println( "Respuesta recibida: " + respuesta );
 
