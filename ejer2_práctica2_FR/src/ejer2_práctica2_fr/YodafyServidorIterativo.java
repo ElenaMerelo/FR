@@ -1,3 +1,5 @@
+package ejer2_práctica2_fr;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -13,10 +15,6 @@ public class YodafyServidorIterativo {
 	public static void main(String[] args) {
 		// Puerto de escucha
 		int port=8989;
-		// array de bytes auxiliar para recibir o enviar datos.
-		byte []buffer=new byte[256];
-		// Número de bytes leídos
-		int bytesLeidos=0;
                 // Abrimos el socket en modo pasivo, escuchando en el puerto indicado por "port"
                 ServerSocket socketServidor;
 		try {

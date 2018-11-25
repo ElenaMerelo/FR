@@ -1,4 +1,4 @@
-//
+package ejer2_práctica2_fr;
 // YodafyServidorIterativo
 // (CC) jjramos, 2012
 // Modificado por Elena Merelo, 2018
@@ -14,7 +14,7 @@ import java.net.UnknownHostException;
 
 public class YodafyClienteTCP {
 	public static void main(String[] args) {
-		String mensaje= "Al monte del volcán debes ir sin demora";
+		String mensaje;
 		String respuesta;
 		
 		// Nombre del host donde se ejecuta el servidor:
@@ -34,10 +34,14 @@ public class YodafyClienteTCP {
                         }catch(IOException e){
                             System.err.println("Error: no se pudo establecer la conexión");
                         }
+                        
+                        mensaje= "Al monte del volcán debes ir sin demora";
+                        InputStream inputStream= socketServicio.getInputStream();
+                        OutputStream outputStream= socketServicio.getOutputStream();
 			
                         //Obtenemos los flujos de lectura y escritura del socket, en modo texto
-                        BufferedReader inReader= new BufferedReader(new InputStreamReader(socketServicio.getInputStream()));
-                        PrintWriter outPrinter= new PrintWriter(socketServicio.getOutputStream(), true);
+                        BufferedReader inReader= new BufferedReader(new InputStreamReader(inputStream));
+                        PrintWriter outPrinter= new PrintWriter(outputStream, true);
 			
 			
 			// Mandamos el mensaje por el outPrinter

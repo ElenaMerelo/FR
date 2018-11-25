@@ -1,3 +1,4 @@
+package ejer2_práctica2_fr;
 // YodafyServidorIterativo
 // (CC) jjramos, 2012
 // Modificado por Elena Merelo, 2018
@@ -51,15 +52,18 @@ public class ProcesadorYodafy {
 			
 			// Lee la frase a Yodaficar:
                         frase= inReader.readLine();
+                        
+                        String peticion= frase;
+                        
 			// Yoda reinterpreta el mensaje:
-			String respuesta=yodaDo(frase);
+                    	String respuesta=yodaDo(peticion);
 			
 			// Enviamos la traducción de Yoda:
                         outPrinter.print(respuesta); 
 			outPrinter.flush();
 			
 		} catch (IOException e) {
-			System.err.println("Error al obtener los flujso de entrada/salida.");
+			System.err.println("Error al obtener los flujos de entrada/salida.");
 		}
 
 	}
