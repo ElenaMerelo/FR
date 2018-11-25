@@ -46,6 +46,7 @@ public class YodafyClienteTCP {
 			
 			// Mandamos el mensaje por el outPrinter
 			outPrinter.println(mensaje);
+                        outPrinter.flush();
 			respuesta= inReader.readLine();
 			
                         //Mostramos lo recibido

@@ -59,7 +59,7 @@ public class ProcesadorYodafy {
                     	String respuesta=yodaDo(peticion);
 			
 			// Enviamos la traducción de Yoda:
-                        outPrinter.print(respuesta); 
+                        outPrinter.println(respuesta); 
 			outPrinter.flush();
 			
 		} catch (IOException e) {
