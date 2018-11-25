@@ -15,6 +15,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.UnknownHostException;
 import java.net.DatagramSocket;
+import java.net.DatagramPacket;
+import java.net.InetAddress;
 
 
 //
@@ -24,48 +26,53 @@ import java.net.DatagramSocket;
 public class ProcesadorYodafy {
 	// Referencia a un socket para enviar/recibir las peticiones/respuestas
 	private DatagramSocket socketServicio;
-	// stream de lectura (por aquí se recibe lo que envía el cliente)
-	private InputStream inputStream;
-	// stream de escritura (por aquí se envía los datos al cliente)
-	private OutputStream outputStream;
+        
+        private DatagramPacket paquete;
+        
+        private InetAddress address;
+        private int port;
+        
+        byte [] buffer;
 	
 	// Para que la respuesta sea siempre diferente, usamos un generador de números aleatorios.
 	private Random random;
 	
 	// Constructor que tiene como parámetro una referencia al socket abierto en por otra clase
-	public ProcesadorYodafy(DatagramSocket socketServicio) {
-		this.socketServicio=socketServicio;
-		random=new Random();
+	public ProcesadorYodafy(DatagramSocket socketServicio, InetAddress a, int p) {
+            this.socketServicio=socketServicio;
+            random=new Random();
+            buffer= new byte[256];
+            paquete= new DatagramPacket(buffer, buffer.length);
+            this.address= a;
+            this.port= p;
 	}
 	
 	
 	// Aquí es donde se realiza el procesamiento realmente:
 	void procesa(){
-                String frase;
-		
-		
-		try {
-                    
-			// Obtiene los flujos de escritura/lectura
-			inputStream=socketServicio.getInputStream();
-			outputStream=socketServicio.getOutputStream();
-			
-                        BufferedReader inReader= new BufferedReader(new InputStreamReader(inputStream));
-                        PrintWriter outPrinter= new PrintWriter(outputStream, true);
-			
-			// Lee la frase a Yodaficar:
-                        frase= inReader.readLine();
-                        
-			// Yoda reinterpreta el mensaje:
-                    	String respuesta=yodaDo(frase);
-			
-			// Enviamos la traducción de Yoda:
-                        outPrinter.println(respuesta); 
-			outPrinter.flush();
-			
-		} catch (IOException e) {
-			System.err.println("Error al obtener los flujos de entrada/salida.");
-		}
+            String frase;
+
+            try {
+                socketServicio.receive(paquete); 
+                
+                buffer= paquete.getData();
+                
+                //Pasamos los bytes a string
+                String mensaje= new String(buffer).trim();
+
+                // Yoda reinterpreta el mensaje:
+                String respuesta=yodaDo(mensaje);
+                
+                byte [] envmensaje= new byte [256];
+                envmensaje= respuesta.getBytes();
+
+                // Enviamos la traducción de Yoda:
+                DatagramPacket envio= new DatagramPacket(envmensaje, envmensaje.length, address, port );
+                socketServicio.send(envio);
+
+            } catch (IOException e) {
+                System.err.println("Error al obtener los flujos de entrada/salida.");
+            }
 
 	}
 
