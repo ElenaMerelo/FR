@@ -53,10 +53,8 @@ public class ProcesadorYodafy {
 			// Lee la frase a Yodaficar:
                         frase= inReader.readLine();
                         
-                        String peticion= frase;
-                        
 			// Yoda reinterpreta el mensaje:
-                    	String respuesta=yodaDo(peticion);
+                    	String respuesta=yodaDo(frase);
 			
 			// Enviamos la traducción de Yoda:
                         outPrinter.println(respuesta); 
