@@ -23,6 +23,17 @@ public class servidor {
             socketServidor= new ServerSocket(port);
             Socket socketConexion= null;
             
+            Afiliado cliente1= new Afiliado(new ArrayList<Integer>(Arrays.asList(1,2,3,4,5,6,7,8)),
+                               new ArrayList<Integer>(Arrays.asList(1,2,3,4)), 
+                               new ArrayList<Integer>(Arrays.asList(1,3,5,7)), 
+                               new ArrayList<String>(Arrays.asList("Elena", "Merelo", "Molina")),
+                               23.23);
+
+            Afiliado cliente2= new Afiliado(new ArrayList<String>(Arrays.asList("Elena", "Nito", "Del Bosque")));
+            ArrayList<Afiliado> misClientes= new ArrayList<>();
+            misClientes.add(cliente1);
+            misClientes.add(cliente2);
+                
             do{
                 try{
                     // Aceptamos nueva conexión
@@ -32,17 +43,6 @@ public class servidor {
                 } finally{
                     Thread.sleep(1000);
                 }
-
-                Afiliado cliente1= new Afiliado(new ArrayList<Integer>(Arrays.asList(1,2,3,4,5,6,7,8)),
-                                   new ArrayList<Integer>(Arrays.asList(1,2,3,4)), 
-                                   new ArrayList<Integer>(Arrays.asList(1,3,5,7)), 
-                                   new ArrayList<String>(Arrays.asList("Elena", "Merelo", "Molina")),
-                                   23.23);
-                
-                Afiliado cliente2= new Afiliado(new ArrayList<String>(Arrays.asList("Elena", "Nito", "Del Bosque")));
-                ArrayList<Afiliado> misClientes= new ArrayList<>();
-                misClientes.add(cliente1);
-                misClientes.add(cliente2);
 
                 // Creamos un objeto de la clase banco, pasándole como argumento el nuevo socket, 
                 // para que realice el procesamiento de los clientes que lleguen. 
