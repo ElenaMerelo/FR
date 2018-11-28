@@ -13,7 +13,6 @@ import java.util.Random;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.UnknownHostException;
 
 
 //
@@ -21,75 +20,75 @@ import java.net.UnknownHostException;
 // ¡Podríamos realizar un procesado concurrente! 
 //
 public class ProcesadorYodafy extends Thread {
-        private int nClientes;
-	// Referencia a un socket para enviar/recibir las peticiones/respuestas
-	private Socket socketServicio;
-	// stream de lectura (por aquí se recibe lo que envía el cliente)
-	private InputStream inputStream;
-	// stream de escritura (por aquí se envía los datos al cliente)
-	private OutputStream outputStream;
-	
-	// Para que la respuesta sea siempre diferente, usamos un generador de números aleatorios.
-	private Random random;
-	
-	// Constructor que tiene como parámetro una referencia al socket abierto en por otra clase
-	public ProcesadorYodafy(Socket socketServicio, int n) {
-                this.nClientes= n;
-		this.socketServicio=socketServicio;
-		random=new Random();
-	}
-	
-	
-	// Aquí es donde se realiza el procesamiento realmente:
-	public void run(){
-                String frase;
-                
-                for(int i= 0; i< nClientes; i++){
-                    try {
-                            // Obtiene los flujos de escritura/lectura
-                            inputStream=socketServicio.getInputStream();
-                            outputStream=socketServicio.getOutputStream();
+    private int nClientes;
+    // Referencia a un socket para enviar/recibir las peticiones/respuestas
+    private Socket socketServicio;
+    // stream de lectura (por aquí se recibe lo que envía el cliente)
+    private InputStream inputStream;
+    // stream de escritura (por aquí se envía los datos al cliente)
+    private OutputStream outputStream;
 
-                            BufferedReader inReader= new BufferedReader(new InputStreamReader(inputStream));
-                            PrintWriter outPrinter= new PrintWriter(outputStream, true);
+    // Para que la respuesta sea siempre diferente, usamos un generador de números aleatorios.
+    private Random random;
 
-                            // Lee la frase a Yodaficar:
-                            frase= inReader.readLine();
+    // Constructor que tiene como parámetro una referencia al socket abierto en por otra clase
+    public ProcesadorYodafy(Socket socketServicio, int n) {
+        this.nClientes= n;
+        this.socketServicio=socketServicio;
+        random=new Random();
+    }
 
-                            // Yoda reinterpreta el mensaje:
-                            String respuesta=yodaDo(frase);
 
-                            // Enviamos la traducción de Yoda:
-                            outPrinter.println(respuesta); 
-                            outPrinter.flush();
+    // Aquí es donde se realiza el procesamiento realmente:
+    public void run(){
+        String frase;
 
-                    } catch (IOException e) {
-                            System.err.println("Error al obtener los flujos de entrada/salida.");
-                    }
-                }
+        for(int i= 0; i< nClientes; i++){
+            try {
+                // Obtiene los flujos de escritura/lectura
+                inputStream=socketServicio.getInputStream();
+                outputStream=socketServicio.getOutputStream();
 
-	}
+                BufferedReader inReader= new BufferedReader(new InputStreamReader(inputStream));
+                PrintWriter outPrinter= new PrintWriter(outputStream, true);
 
-	// Yoda interpreta una frase y la devuelve en su "dialecto":
-	private String yodaDo(String peticion) {
-		// Desordenamos las palabras:
-		String[] s = peticion.split(" ");
-		String resultado="";
-		
-		for(int i=0;i<s.length;i++){
-			int j=random.nextInt(s.length);
-			int k=random.nextInt(s.length);
-			String tmp=s[j];
-			
-			s[j]=s[k];
-			s[k]=tmp;
-		}
-		
-		resultado=s[0];
-		for(int i=1;i<s.length;i++){
-		  resultado+=" "+s[i];
-		}
-		
-		return resultado;
-	}
+                // Lee la frase a Yodaficar:
+                frase= inReader.readLine();
+
+                // Yoda reinterpreta el mensaje:
+                String respuesta=yodaDo(frase);
+
+                // Enviamos la traducción de Yoda:
+                outPrinter.println(respuesta); 
+                outPrinter.flush();
+
+            } catch (IOException e) {
+                System.err.println("Error al obtener los flujos de entrada/salida.");
+            }
+        }
+
+    }
+
+    // Yoda interpreta una frase y la devuelve en su "dialecto":
+    private String yodaDo(String peticion) {
+        // Desordenamos las palabras:
+        String[] s = peticion.split(" ");
+        String resultado="";
+
+        for(int i=0;i<s.length;i++){
+            int j=random.nextInt(s.length);
+            int k=random.nextInt(s.length);
+            String tmp=s[j];
+
+            s[j]=s[k];
+            s[k]=tmp;
+        }
+
+        resultado=s[0];
+        for(int i=1;i<s.length;i++){
+          resultado+=" "+s[i];
+        }
+
+        return resultado;
+    }
 }
