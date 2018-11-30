@@ -41,7 +41,7 @@ public class cliente {
             PrintWriter outPrinter= new PrintWriter(outputStream, true);
             
             procesar();
-
+           
             do{
                 // Mandamos el mensaje por el outPrinter
                 outPrinter.println(mensaje);
@@ -76,18 +76,20 @@ public class cliente {
         }while(!opcion.equals("0") && !opcion.equals("1"));
         
         if(opcion.equals("0")){
+            int n, m, ndigits;
             // Hasta que no introduzca un entero de ocho dígitos
             do{
                 System.out.println("Introduzca su número de tarjeta");
-                int n= s.nextInt(), m= n, ndigits= 0;
-
-                while( n > 0){
+                n= s.nextInt();
+                m= n;
+                ndigits= 0;
+                while(n> 0){          
                     n /= 10;
                     ndigits++;
                 }
-                
+      
             }while(ndigits != 8);
-            
+            // Si llegamos aquí es que el número de tarjeta está correcto. Metemos en un array los dígitos 
             ArrayList<Integer> numeroTarjeta= new ArrayList<>();
             for(int i= 0; i< 8; i++){
                numeroTarjeta.add(8-i, n % 10);

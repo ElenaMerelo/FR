@@ -99,4 +99,8 @@ public class Afiliado {
     public void consultarDinero(){
         System.out.println("\nTiene " + dinero + " euros.");
     }
+    
+    public void getNombre(){
+        System.out.println(nombre.get(0) + " " + nombre.get(1) + " " + nombre.get(2));
+    }
 }

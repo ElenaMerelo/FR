@@ -12,6 +12,8 @@ import java.util.Arrays;
 
 
 public class servidor {
+    static ArrayList<Afiliado> misClientes;
+    
     public static void main(String [] args){
         System.out.println("\nBienvenido a elebank.");
         int port= 8989;
@@ -23,14 +25,14 @@ public class servidor {
             socketServidor= new ServerSocket(port);
             Socket socketConexion= null;
             
-            Afiliado cliente1= new Afiliado(new ArrayList<Integer>(Arrays.asList(1,2,3,4,5,6,7,8)),
-                               new ArrayList<Integer>(Arrays.asList(1,2,3,4)), 
-                               new ArrayList<Integer>(Arrays.asList(1,3,5,7)), 
-                               new ArrayList<String>(Arrays.asList("Elena", "Merelo", "Molina")),
+            Afiliado cliente1= new Afiliado(new ArrayList<>(Arrays.asList(1,2,3,4,5,6,7,8)),
+                               new ArrayList<>(Arrays.asList(1,2,3,4)), 
+                               new ArrayList<>(Arrays.asList(1,3,5,7)), 
+                               new ArrayList<>(Arrays.asList("Elena", "Merelo", "Molina")),
                                23.23);
 
-            Afiliado cliente2= new Afiliado(new ArrayList<String>(Arrays.asList("Elena", "Nito", "Del Bosque")));
-            ArrayList<Afiliado> misClientes= new ArrayList<>();
+            Afiliado cliente2= new Afiliado(new ArrayList<>(Arrays.asList("Elena", "Nito", "Del Bosque")));
+            misClientes= new ArrayList<>();
             misClientes.add(cliente1);
             misClientes.add(cliente2);
                 
