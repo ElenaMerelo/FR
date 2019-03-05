@@ -10,17 +10,19 @@ import java.io.PrintWriter;
 
 public class protocolo {
     static int DISCONNECT = 1000;
-    static int LOGIN = 1001;
-    static int REGISTRATE = 1002;
-    static int CONNECTIONTIME = 1003;
-    static int STAYCONNECTED = 1004;
-    static int STAYCONNECTEDANSWER = 1005;
+    static int NUEVACUENTA = 1001;
+    static int LOGINCUENTA = 1002;
+    static int SACAR= 1003;
+    static int INGRESAR = 1004;
+    static int ERRORFONDOS = 1005;
+    static int PEDIRPIN1= 1006;
+    static int PEDIRPIN2= 1007;
+    static int SACARCONPIN1= 1008;
+    static int SACARCONPIN2= 1009;
+    static int ERRORCUENTA = 401;
+    static int PIN1INCORRECTO= 402;
+    static int PIN2INCORRECTO= 403;
     static int OK = 200;
-    static int LOGINERROR = 401;
-    static int TAKENUSER = 402;
-
-    
-    static int DATA = 2000;
     
     static String SEPARATOR = "//";
     

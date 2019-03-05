@@ -12,7 +12,6 @@ import java.util.Arrays;
 
 
 public class servidor {
-    static ArrayList<Afiliado> misClientes;
     
     public static void main(String [] args){
         System.out.println("\nBienvenido a elebank.");
@@ -25,17 +24,19 @@ public class servidor {
             socketServidor= new ServerSocket(port);
             Socket socketConexion= null;
             
-            Afiliado cliente1= new Afiliado(new ArrayList<>(Arrays.asList(1,2,3,4,5,6,7,8)),
-                               new ArrayList<>(Arrays.asList(1,2,3,4)), 
-                               new ArrayList<>(Arrays.asList(1,3,5,7)), 
-                               new ArrayList<>(Arrays.asList("Elena", "Merelo", "Molina")),
-                               23.23);
+            
+            //=====Inicializamos la clase banco=====.
+            Afiliado cliente1= new Afiliado("12345678","1234", "1357", 
+                               new ArrayList<>(Arrays.asList("Elena", "Merelo", "Molina")), 23.23);
 
             Afiliado cliente2= new Afiliado(new ArrayList<>(Arrays.asList("Elena", "Nito", "Del Bosque")));
-            misClientes= new ArrayList<>();
-            misClientes.add(cliente1);
-            misClientes.add(cliente2);
+            
+            Banco.clientes= new ArrayList<>();
+            Banco.clientes.add(cliente1);
+            Banco.clientes.add(cliente2);
                 
+            //====================================
+            // Logica del servidor
             do{
                 try{
                     // Aceptamos nueva conexión
@@ -48,8 +49,9 @@ public class servidor {
 
                 // Creamos un objeto de la clase banco, pasándole como argumento el nuevo socket, 
                 // para que realice el procesamiento de los clientes que lleguen. 
-                Banco elebank= new Banco(socketConexion, misClientes);
+                Banco elebank= new Banco(socketConexion);
                 elebank.start();
+                System.out.println("Nuevo cliente conectado...");
             } while (true);
             
         }catch(Exception e){
